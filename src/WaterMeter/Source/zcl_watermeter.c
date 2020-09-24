@@ -237,7 +237,7 @@ uint16 zclWaterMeter_event_loop( uint8 task_id, uint16 events )
     } else if(isWaterOn) {
       isWaterOn = 0;
       wm_sendReport();
-    } else if(countAlive == 360) {
+    } else if(countAlive >= 360) {
       wm_sendReport();
     }
 
