@@ -8,7 +8,7 @@ Provided are sources for IAR Embedded Workbench 8051 and compiled firmware in .h
 Still in beta testing phase!
 
 TODO:
-- Change identifier of the Zigbee device. For now "ZigUp" is used so that no changes in zigbee2mqtt are necessary. s0_counts attribute is used as a counter and switch indicates if water is flowing or not.
+- Change identifier of the Zigbee device. For now ["ZigUp"](https://github.com/formtapez/ZigUP) is used so that no changes in [zigbee2mqtt](http://zigbee2mqtt.io) are necessary. s0_counts attribute is used as a counter and switch indicates if water is flowing or not.
 - Integrate the new device to zigbee2mqtt - requires changing the current identifiers.
 - Provide possibility to calibrate the counter from Zigbee and set sensitivity of sensor.
 - Find suitable Zigbee cluster
@@ -16,10 +16,10 @@ TODO:
 - Add reporting of battery voltage.
 - Find suitable enclosures for the main unit and the sensor.
 
-It can be used with watermeters with the counter wheel with reflective area.
+<p>It can be used with watermeters with the counter wheel with reflective area.</p>
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/watermeter.jpg" width="300px">
 
-The following cc2530 module is recommended:
+<p>The following cc2530 module is recommended:</p>
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/module.jpg" width="300px">
 
 Wiring diagram of the sensor unit:
