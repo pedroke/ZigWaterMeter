@@ -13,18 +13,19 @@ TODO:
 - Provide possibility to calibrate the counter from Zigbee and set sensitivity of sensor.
 - Find suitable Zigbee cluster
 - Introduce joining mechanism. Now the device is joining the network automatically when battery is connected. Currently the firmware has to be re-flashed to clear nvram.
+- Add reporting of battery voltage.
 - Find suitable enclosures for the main unit and the sensor.
 
-It can be used with watermeters with the counter wheel with reflective area.
+<div>It can be used with watermeters with the counter wheel with reflective area.</div>
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/watermeter.jpg" width="300px">
 
-The following cc2530 module is recommended:
+<div>The following cc2530 module is recommended:</div>
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/module.jpg" width="300px">
 
-Wiring diagram of the sensor unit:
+<div>Wiring diagram of the sensor unit:</div>
 ![Reflection sensor schematic](/images/schematic.jpg?raw=true "Reflection sensor schematic")
 
-PCB for the sensor is provided in gerber:
+<div>PCB for the sensor is provided in gerber:</div>
 ![Reflection sensor pcb](/images/pcb.jpg?raw=true "Reflection sensor pcb")
 
 The sensor unit is connected to the cc2530 module. VCC is taken from the I/O port and is switched on only in short intervals when the sensor is reading to save battery. The output of the sensor is evaluated on analog input and the read value is compared with (for now) hardcoded threshold.
