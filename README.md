@@ -16,16 +16,16 @@ TODO:
 - Add reporting of battery voltage.
 - Find suitable enclosures for the main unit and the sensor.
 
-<div>It can be used with watermeters with the counter wheel with reflective area.</div>
+It can be used with watermeters with the counter wheel with reflective area.
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/watermeter.jpg" width="300px">
 
-<div>The following cc2530 module is recommended:</div>
+The following cc2530 module is recommended:
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/module.jpg" width="300px">
 
-<div>Wiring diagram of the sensor unit:</div>
+Wiring diagram of the sensor unit:
 ![Reflection sensor schematic](/images/schematic.jpg?raw=true "Reflection sensor schematic")
 
-<div>PCB for the sensor is provided in gerber:</div>
+PCB for the sensor is provided in gerber:
 ![Reflection sensor pcb](/images/pcb.jpg?raw=true "Reflection sensor pcb")
 
 The sensor unit is connected to the cc2530 module. VCC is taken from the I/O port and is switched on only in short intervals when the sensor is reading to save battery. The output of the sensor is evaluated on analog input and the read value is compared with (for now) hardcoded threshold.
