@@ -8,8 +8,7 @@ Provided are sources for IAR Embedded Workbench 8051 and compiled firmware in .h
 Still in beta testing phase!
 
 TODO:
-- Change identifier of the Zigbee device. For now ["ZigUp"](https://github.com/formtapez/ZigUP) is used so that no changes in [zigbee2mqtt](http://zigbee2mqtt.io) are necessary. s0_counts attribute is used as a counter and switch indicates if water is flowing or not.
-- Integrate the new device to zigbee2mqtt - requires changing the current identifiers.
+- Integrate the new device to zigbee2mqtt.
 - Provide possibility to calibrate the counter from Zigbee and set sensitivity of sensor.
 - Find suitable Zigbee cluster
 - Introduce joining mechanism. Now the device is joining the network automatically when battery is connected. Currently the firmware has to be re-flashed to clear nvram.
