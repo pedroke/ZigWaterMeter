@@ -27,9 +27,9 @@
 // Basic Cluster
 const uint8 zclWaterMeter_HWRevision = WATERMETER_HWVERSION;
 const uint8 zclWaterMeter_ZCLVersion = WATERMETER_ZCLVERSION;
-const uint8 zclWaterMeter_ManufacturerName[] = { 9, 'f','o','r','m','t','a','p','e','z' };
-const uint8 zclWaterMeter_ModelId[] = { 5, 'Z','i','g','U','P' };
-const uint8 zclWaterMeter_DateCode[] = { 16, '2','0','2','0','0','6','0','1',' ',' ',' ',' ',' ',' ',' ',' ' };
+const uint8 zclWaterMeter_ManufacturerName[] = { 13 , 'O','p','e','n','S','m','a','r','t','H','o','m','e' };
+const uint8 zclWaterMeter_ModelId[] = { 5, 'Z','i','g','W','M' };
+const uint8 zclWaterMeter_DateCode[] = { 16, '2','0','2','0','1','0','0','1',' ',' ',' ',' ',' ',' ',' ',' ' };
 const uint8 zclWaterMeter_PowerSource = POWER_SOURCE_BATTERY;
 
 uint8 zclWaterMeter_LocationDescription[17] = { 16, ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };

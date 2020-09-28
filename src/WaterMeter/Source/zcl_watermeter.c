@@ -155,7 +155,7 @@ static void wm_readSensor(void) {
   uint16 analogValue = HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
   P1_1 = 0; // turn off IR
 
-  uint8 signal = analogValue > 450;
+  uint8 signal = analogValue > 460;
   
   if(signal) {
     if(!isOnReflective) {
@@ -237,7 +237,7 @@ uint16 zclWaterMeter_event_loop( uint8 task_id, uint16 events )
     } else if(isWaterOn) {
       isWaterOn = 0;
       wm_sendReport();
-    } else if(countAlive >= 360) {
+    } else if(countAlive == 360) {
       wm_sendReport();
     }
 
