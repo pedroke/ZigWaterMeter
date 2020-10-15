@@ -308,24 +308,23 @@
                     <state>SECURE=1</state>
                     <state>TC_LINKKEY_JOIN</state>
                     <state>NV_INIT</state>
-                    <state>xNV_RESTORE</state>
-                    <state>xHOLD_AUTO_START</state>
-                    <state>ZTOOL_P1</state>
-                    <state>MT_TASK</state>
-                    <state>MT_APP_FUNC</state>
-                    <state>MT_SYS_FUNC</state>
-                    <state>MT_ZDO_FUNC</state>
-                    <state>LCD_SUPPORTED=DEBUG</state>
+                    <state>NV_RESTORE</state>
+                    <state>POWER_SAVING</state>
+                    <state>NWK_AUTO_POLL</state>
+                    <state>LCD_SUPPORTED=FALSE</state>
                     <state>MULTICAST_ENABLED=FALSE</state>
                     <state>ZCL_READ</state>
                     <state>ZCL_WRITE</state>
                     <state>ZCL_REPORT</state>
-                    <state>ZCL_EZMODE</state>
                     <state>ZCL_BASIC</state>
                     <state>ZCL_IDENTIFY</state>
                     <state>ZCL_ON_OFF</state>
-                    <state>ZCL_DIAGNOSTIC</state>
-                    <state>FEATURE_SYSTEM_STATS</state>
+                    <state>HAL_KEY=FALSE</state>
+                    <state>HAL_LED=FALSE</state>
+                    <state>HAL_LCD=FALSE</state>
+                    <state>xHOLD_AUTO_START</state>
+                    <state>xZCL_DIAGNOSTIC</state>
+                    <state>xFEATURE_SYSTEM_STATS</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2623,12 +2622,18 @@
                     <state>TC_LINKKEY_JOIN</state>
                     <state>NV_INIT</state>
                     <state>NV_RESTORE</state>
+                    <state>POWER_SAVING</state>
+                    <state>ZCL_ON_OFF</state>
+                    <state>ZCL_READ</state>
+                    <state>ZCL_WRITE</state>
+                    <state>ZCL_REPORT</state>
+                    <state>ZCL_BASIC</state>
+                    <state>ZCL_IDENTIFY</state>
+                    <state>NWK_AUTO_POLL</state>
                     <state>HAL_KEY=FALSE</state>
                     <state>HAL_LED=FALSE</state>
                     <state>HAL_LCD=FALSE</state>
-                    <state>POWER_SAVING</state>
                     <state>LCD_SUPPORTED=FALSE</state>
-                    <state>xNWK_AUTO_POLL</state>
                     <state>xHOLD_AUTO_START</state>
                     <state>xZTOOL_P1</state>
                     <state>xMT_TASK</state>
@@ -2636,14 +2641,8 @@
                     <state>xMT_SYS_FUNC</state>
                     <state>xMT_ZDO_FUNC</state>
                     <state>MULTICAST_ENABLED=FALSE</state>
-                    <state>ZCL_READ</state>
-                    <state>xZCL_WRITE</state>
-                    <state>ZCL_REPORT</state>
                     <state>xZCL_EZMODE</state>
-                    <state>ZCL_BASIC</state>
-                    <state>ZCL_IDENTIFY</state>
-                    <state>ZCL_DISCOVER</state>
-                    <state>xZCL_ON_OFF</state>
+                    <state>xZCL_DISCOVER</state>
                     <state>xZCL_DIAGNOSTIC</state>
                     <state>xFEATURE_SYSTEM_STATS</state>
                 </option>
