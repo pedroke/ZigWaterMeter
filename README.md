@@ -8,8 +8,7 @@ Provided are sources for IAR Embedded Workbench 8051 and compiled firmware in .h
 Still in beta testing phase!
 
 TODO:
-- Integrate the new device to zigbee2mqtt.
-- Find suitable Zigbee cluster
+- Find suitable, more specific Zigbee cluster
 - Introduce joining mechanism. Now the device is joining the network automatically when battery is connected. Currently the firmware has to be re-flashed to clear nvram.
 - Add reporting of battery voltage.
 - Find suitable enclosures for the main unit and the sensor.
