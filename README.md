@@ -9,7 +9,6 @@ Still in beta testing phase!
 
 TODO:
 - Integrate the new device to zigbee2mqtt.
-- Provide possibility to calibrate the counter from Zigbee and set sensitivity of sensor.
 - Find suitable Zigbee cluster
 - Introduce joining mechanism. Now the device is joining the network automatically when battery is connected. Currently the firmware has to be re-flashed to clear nvram.
 - Add reporting of battery voltage.
