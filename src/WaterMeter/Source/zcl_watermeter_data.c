@@ -125,7 +125,33 @@ CONST zclAttrRec_t zclWaterMeter_Attrs[] =
       (void *)&zclWaterMeter_DeviceEnable
     }
   },
-  
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_STATUS,
+      ZCL_DATATYPE_BOOLEAN,
+      (ACCESS_CONTROL_READ),
+      (void *)&zclWaterMeter_Status
+    }
+  },
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_COUNTER,
+      ZCL_DATATYPE_UINT32,
+      (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+      (void *)&zclWaterMeter_Counter
+    }
+  },
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_THRESHOLD,
+      ZCL_DATATYPE_UINT16,
+      (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+      (void *)&zclWaterMeter_Threshold
+    }
+  },  
 #ifdef ZCL_IDENTIFY
   // *** Identify Cluster Attribute ***
   {

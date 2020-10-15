@@ -24,7 +24,9 @@ extern "C"
 extern CONST uint8 zclWaterMeter_NumAttributes;
 
 // custom attributes
+#define ATTRID_STATUS 41363
 #define ATTRID_COUNTER 41364
+#define ATTRID_THRESHOLD 41365
 
 /*********************************************************************
  * VARIABLES
@@ -36,6 +38,12 @@ extern CONST zclAttrRec_t zclWaterMeter_Attrs[];
 extern uint16 zclWaterMeter_IdentifyTime;
 
 extern uint16 zclWaterMeterSeqNum;
+
+extern uint8 zclWaterMeter_Status;
+
+extern uint32 zclWaterMeter_Counter;
+
+extern uint16 zclWaterMeter_Threshold;
 
 /*********************************************************************
  * FUNCTIONS
