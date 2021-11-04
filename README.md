@@ -27,7 +27,7 @@ Wiring diagram of the sensor unit:
 
 The new version of the sensor is created on the prototyping PCB:
 
-<img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/water_sensor.jpg">
+<img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/water_sensor.jpg" width="300px">
 
 The sensor unit is connected to the cc2530 module. VCC is taken from the I/O port and is switched on only in short intervals when the sensor is reading to save battery. The output of the sensor is evaluated on analog input and the read value is compared with ( for now ) hardcoded threshold.  
 
