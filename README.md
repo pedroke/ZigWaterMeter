@@ -25,9 +25,9 @@ Wiring diagram of the sensor unit:
 
 <img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/schematic.jpg">
 
-PCB for the sensor is [provided](https://github.com/pedroke/ZigWaterMeter/blob/master/pcb/gerber_reflection_sensor.zip) in gerber:  
+The new version of the sensor is created on the prototyping PCB:
 
-<img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/pcb.jpg">
+<img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/water_sensor.jpg">
 
 The sensor unit is connected to the cc2530 module. VCC is taken from the I/O port and is switched on only in short intervals when the sensor is reading to save battery. The output of the sensor is evaluated on analog input and the read value is compared with ( for now ) hardcoded threshold.  
 
