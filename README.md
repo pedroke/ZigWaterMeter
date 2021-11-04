@@ -23,7 +23,7 @@ The following cc2530 module is recommended:
 
 Wiring diagram of the sensor unit:  
 
-<img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/schematic.jpg">
+<img src="https://github.com/pedroke/ZigWaterMeter/blob/master/images/schematic.jpg" width="300px">
 
 The new version of the sensor is created on the prototyping PCB:
 
