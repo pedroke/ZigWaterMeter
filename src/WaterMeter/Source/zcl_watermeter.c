@@ -18,13 +18,15 @@
 byte zclWaterMeter_TaskID;
 
 uint16 zclWaterMeterSeqNum = 0;
-uint8 zclWaterMeter_Status = 0;
-uint32 zclWaterMeter_Counter = 0;
-uint16 zclWaterMeter_Threshold = 440;
+uint8 zclWaterMeter_Status[2] = {0, 0};
+uint32 zclWaterMeter_Counter[2] = {0, 0};
+uint16 zclWaterMeter_Threshold = 150;
+uint16 zclWaterMeter_LastRead[2] = {0, 0};
 
 static uint16 countAlive = 0;
-static uint32 lastCounter = 0;
-static uint8 isOnReflective = 0;
+static uint32 lastCounter[2] = {0, 0};
+static uint8 isOnReflective[2] = {0, 0};
+static uint8 sid = 1;
 
 static const uint32 WM_MAX_COUNTER = 0xFFFFFFFF;
 /*********************************************************************
@@ -55,7 +57,7 @@ static void zclWaterMeter_IdentifyCB( zclIdentify_t *pCmd );
 
 // Water meter
 static void wm_initPorts(void);
-static void wm_readSensor(void);
+static void wm_readSensor(uint8 sid);
 /*********************************************************************
  * ZCL General Profile Callback table
  */
@@ -109,7 +111,7 @@ void zclWaterMeter_Init( byte task_id )
   afRegister( &waterMeter_TestEp );
 
   osal_start_timerEx( zclWaterMeter_TaskID, WATERMETER_REPORTING_EVT, 30000 );
-  osal_start_timerEx( zclWaterMeter_TaskID, WATERMETER_READ_SENSOR_EVT, 500 );
+  osal_start_timerEx( zclWaterMeter_TaskID, WATERMETER_READ_SENSOR_EVT, 250 );
 }
 
 void wm_sendReport(void)
@@ -117,7 +119,7 @@ void wm_sendReport(void)
 		// send report
 		zclReportCmd_t *pReportCmd;
   
-		uint8 NUM_ATTRS = 3;
+		uint8 NUM_ATTRS = 7;
 		pReportCmd = osal_mem_alloc( sizeof(zclReportCmd_t) + ( NUM_ATTRS * sizeof(zclReport_t) ) );
 		if ( pReportCmd != NULL )
 		{
@@ -125,15 +127,31 @@ void wm_sendReport(void)
     
 			pReportCmd->attrList[0].attrID = ATTRID_STATUS;
 			pReportCmd->attrList[0].dataType = ZCL_DATATYPE_BOOLEAN;
-			pReportCmd->attrList[0].attrData = (void *)(&zclWaterMeter_Status);
-    
+			pReportCmd->attrList[0].attrData = (void *)(&zclWaterMeter_Status[0]);
+
 			pReportCmd->attrList[1].attrID = ATTRID_COUNTER;
 			pReportCmd->attrList[1].dataType = ZCL_DATATYPE_UINT32;
-			pReportCmd->attrList[1].attrData = (void *)(&zclWaterMeter_Counter);
+			pReportCmd->attrList[1].attrData = (void *)(&zclWaterMeter_Counter[0]);
 
 			pReportCmd->attrList[2].attrID = ATTRID_THRESHOLD;
 			pReportCmd->attrList[2].dataType = ZCL_DATATYPE_UINT16;
 			pReportCmd->attrList[2].attrData = (void *)(&zclWaterMeter_Threshold);
+
+			pReportCmd->attrList[3].attrID = ATTRID_LASTREAD;
+			pReportCmd->attrList[3].dataType = ZCL_DATATYPE_UINT16;
+			pReportCmd->attrList[3].attrData = (void *)(&zclWaterMeter_LastRead[0]);
+
+			pReportCmd->attrList[4].attrID = ATTRID_STATUS2;
+			pReportCmd->attrList[4].dataType = ZCL_DATATYPE_BOOLEAN;
+			pReportCmd->attrList[4].attrData = (void *)(&zclWaterMeter_Status[1]);
+
+			pReportCmd->attrList[5].attrID = ATTRID_COUNTER2;
+			pReportCmd->attrList[5].dataType = ZCL_DATATYPE_UINT32;
+			pReportCmd->attrList[5].attrData = (void *)(&zclWaterMeter_Counter[1]);
+
+			pReportCmd->attrList[6].attrID = ATTRID_LASTREAD2;
+			pReportCmd->attrList[6].dataType = ZCL_DATATYPE_UINT16;
+			pReportCmd->attrList[6].attrData = (void *)(&zclWaterMeter_LastRead[1]);
                         
 			zclWaterMeter_DstAddr.addrMode = (afAddrMode_t)Addr16Bit;
 			zclWaterMeter_DstAddr.addr.shortAddr = 0;
@@ -149,38 +167,56 @@ void wm_sendReport(void)
 void wm_initPorts(void) {
   // IR LED transmiter = P1.1
   P1SEL = 0x00; // whole P1 port set as general I/O
-  P1DIR = 0x02; // whole P1 port set as input, P1.1 output - LED
-  P1INP = 0x02; // pull up the whole port, P1.1 - tristate
+  P1DIR = 0x03; // whole P1 port set as input, P1.0 and P1.1 output - LED
+  P1INP = 0x03; // pull up the whole port, P1.0 and P1.1 - tristate
 }
 
-static void wm_readSensor(void) {
-  P1_1 = 1; // turn on IR
-  // Read from P0_2
-  HalAdcSetReference(HAL_ADC_REF_AVDD);
-  uint16 analogValue = HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
-  P1_1 = 0; // turn off IR
+static void wm_readSensor(uint8 sid) {
+  uint16 analogValue;
+  if(sid == 0) {
+    P1_1 = 1; // turn on IR
+    // Read from P0_2
+    HalAdcSetReference(HAL_ADC_REF_AVDD);
+    analogValue = HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
+    analogValue = HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
+    analogValue = HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
+    HalAdcRead(HAL_ADC_CHN_AIN3, HAL_ADC_RESOLUTION_10);
+    HalAdcRead(HAL_ADC_CHN_AIN3, HAL_ADC_RESOLUTION_10);
+    P1_1 = 0; // turn off IR
+  } else {
+    P1_0 = 1; // turn on IR
+    // Read from P0_3
+    HalAdcSetReference(HAL_ADC_REF_AVDD);
+    analogValue = HalAdcRead(HAL_ADC_CHN_AIN3, HAL_ADC_RESOLUTION_10);
+    analogValue = HalAdcRead(HAL_ADC_CHN_AIN3, HAL_ADC_RESOLUTION_10);
+    analogValue = HalAdcRead(HAL_ADC_CHN_AIN3, HAL_ADC_RESOLUTION_10);
+    HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
+    HalAdcRead(HAL_ADC_CHN_AIN2, HAL_ADC_RESOLUTION_10);
+    P1_0 = 0; // turn off IR    
+  }
 
+  zclWaterMeter_LastRead[sid] = analogValue;
   uint8 signal = analogValue > zclWaterMeter_Threshold;
   
   if(signal) {
-    if(!isOnReflective) {
-          isOnReflective = 1;
-          if(!zclWaterMeter_Status) {
-            zclWaterMeter_Status = 1;
+    if(!isOnReflective[sid]) {
+          isOnReflective[sid] = 1;
+          if(!zclWaterMeter_Status[sid]) {
+            zclWaterMeter_Status[sid] = 1;
             wm_sendReport();
           }
-	  if(zclWaterMeter_Counter == WM_MAX_COUNTER) {
+	  if(zclWaterMeter_Counter[sid] == WM_MAX_COUNTER) {
 		  wm_sendReport();
-		  zclWaterMeter_Counter = 0;
-		  lastCounter = 0;
+		  zclWaterMeter_Counter[sid] = 0;
+		  lastCounter[sid] = 0;
 	  } else {
-		zclWaterMeter_Counter++;
+		zclWaterMeter_Counter[sid]++;
 	  }
     }
-  } else if(isOnReflective) {
-    isOnReflective = 0;
-    if(!zclWaterMeter_Status) {
-      zclWaterMeter_Status = 1;
+  } else if(isOnReflective[sid]) {
+    isOnReflective[sid] = 0;
+    if(!zclWaterMeter_Status[sid]) {
+      zclWaterMeter_Status[sid] = 1;
       wm_sendReport();
     }
   }
@@ -237,12 +273,24 @@ uint16 zclWaterMeter_event_loop( uint8 task_id, uint16 events )
 
   if ( events & WATERMETER_REPORTING_EVT ) {
     countAlive++;
-    if(zclWaterMeter_Counter > lastCounter) {
-      lastCounter = zclWaterMeter_Counter;
-    } else if(zclWaterMeter_Status) {
-      zclWaterMeter_Status = 0;
-      wm_sendReport();
-    } else if(countAlive == 360) {
+    uint8 sendReport = 0;
+    uint8 isFlowing = 0;
+      
+    for(uint8 i=0; i<2; i++) {
+      if(zclWaterMeter_Counter[i] > lastCounter[i]) {
+        lastCounter[i] = zclWaterMeter_Counter[i];
+        isFlowing = 1;
+      } else if(zclWaterMeter_Status[i]) {
+        zclWaterMeter_Status[i] = 0;
+        sendReport = 1;
+      }
+    }
+    
+    if(countAlive >= 360 && !isFlowing) {
+      sendReport = 1;
+    }
+    
+    if(sendReport) {
       wm_sendReport();
     }
 
@@ -252,8 +300,9 @@ uint16 zclWaterMeter_event_loop( uint8 task_id, uint16 events )
   }
 
   if ( events & WATERMETER_READ_SENSOR_EVT ) {
-    wm_readSensor();
-    osal_start_timerEx( zclWaterMeter_TaskID, WATERMETER_READ_SENSOR_EVT, 500 );
+    sid = !sid;
+    wm_readSensor(sid);
+    osal_start_timerEx( zclWaterMeter_TaskID, WATERMETER_READ_SENSOR_EVT, 250 );
     
     return ( events ^ WATERMETER_READ_SENSOR_EVT );
   }

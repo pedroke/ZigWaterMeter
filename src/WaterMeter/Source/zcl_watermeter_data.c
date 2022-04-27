@@ -131,7 +131,16 @@ CONST zclAttrRec_t zclWaterMeter_Attrs[] =
       ATTRID_STATUS,
       ZCL_DATATYPE_BOOLEAN,
       (ACCESS_CONTROL_READ),
-      (void *)&zclWaterMeter_Status
+      (void *)&zclWaterMeter_Status[0]
+    }
+  },
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_STATUS2,
+      ZCL_DATATYPE_BOOLEAN,
+      (ACCESS_CONTROL_READ),
+      (void *)&zclWaterMeter_Status[1]
     }
   },
   {
@@ -140,7 +149,16 @@ CONST zclAttrRec_t zclWaterMeter_Attrs[] =
       ATTRID_COUNTER,
       ZCL_DATATYPE_UINT32,
       (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
-      (void *)&zclWaterMeter_Counter
+      (void *)&zclWaterMeter_Counter[0]
+    }
+  },
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_COUNTER2,
+      ZCL_DATATYPE_UINT32,
+      (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
+      (void *)&zclWaterMeter_Counter[1]
     }
   },
   {
@@ -151,7 +169,25 @@ CONST zclAttrRec_t zclWaterMeter_Attrs[] =
       (ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE),
       (void *)&zclWaterMeter_Threshold
     }
-  },  
+  }, 
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_LASTREAD,
+      ZCL_DATATYPE_UINT16,
+      (ACCESS_CONTROL_READ),
+      (void *)&zclWaterMeter_LastRead[0]
+    }
+  },
+  {
+    ZCL_CLUSTER_ID_GEN_BASIC,
+    { // Attribute record
+      ATTRID_LASTREAD2,
+      ZCL_DATATYPE_UINT16,
+      (ACCESS_CONTROL_READ),
+      (void *)&zclWaterMeter_LastRead[1]
+    }
+  },
 #ifdef ZCL_IDENTIFY
   // *** Identify Cluster Attribute ***
   {

@@ -27,6 +27,10 @@ extern CONST uint8 zclWaterMeter_NumAttributes;
 #define ATTRID_STATUS 41363
 #define ATTRID_COUNTER 41364
 #define ATTRID_THRESHOLD 41365
+#define ATTRID_LASTREAD 41366
+#define ATTRID_STATUS2 41367
+#define ATTRID_COUNTER2 41368
+#define ATTRID_LASTREAD2 41369
 
 /*********************************************************************
  * VARIABLES
@@ -39,11 +43,13 @@ extern uint16 zclWaterMeter_IdentifyTime;
 
 extern uint16 zclWaterMeterSeqNum;
 
-extern uint8 zclWaterMeter_Status;
+extern uint8 zclWaterMeter_Status[];
 
-extern uint32 zclWaterMeter_Counter;
+extern uint32 zclWaterMeter_Counter[];
 
 extern uint16 zclWaterMeter_Threshold;
+
+extern uint16 zclWaterMeter_LastRead[];
 
 /*********************************************************************
  * FUNCTIONS
